@@ -453,7 +453,10 @@
           "近三个月境外地址证明（任选其一：水电费账单 Utility Bill、银行账单 Bank Statement、其他官方认可的地址证明）",
           "近三个月完整银行流水（Bank Statement）",
           "账户余额及流水需能够覆盖本次做单金额",
-          "电话/邮箱"
+          "电话/邮箱",
+          "客户职业",
+          "年收入",
+          "公司/工作所属行业"
         ]
       },
       {
@@ -465,6 +468,27 @@
         materials: [
           "身份证（正反面清晰照片或扫描件）",
           "护照（个人信息页清晰照片或扫描件）",
+          "近三个月境外地址证明（任选其一：水电费账单 Utility Bill、银行账单 Bank Statement、其他官方认可的地址证明）",
+          "近三个月完整银行流水（Bank Statement）",
+          "账户余额及流水需能够覆盖本次做单金额",
+          "电话/邮箱",
+          "客户职业",
+          "年收入",
+          "公司/工作所属行业"
+        ]
+      },
+      {
+        name: "PSP PAVE",
+        labels: ["黄金户", "固定户", "普通户"],
+        currencies: ["AUD", "USD", "CAD", "CHF", "EUR", "GBP", "HKD", "SGD", "THB", "JPY", "KRW", "AED", "IDR"],
+        accountTime: "悉尼时间 11 点左右",
+        note: "PAVE 均以 SC 名义出款。",
+        materials: [
+          "身份证（正反面清晰照片或扫描件）",
+          "护照（个人信息页清晰照片或扫描件）",
+          "近三个月地址证明（任选其一：水电费账单 Utility Bill、银行账单 Bank Statement、其他官方认可的地址证明）",
+          "近三个月完整银行流水（Bank Statement）",
+          "账户余额及流水需能够覆盖本次做单金额",
           "电话/邮箱"
         ]
       },
@@ -548,6 +572,7 @@
             ${(psp.labels || []).map((label) => `<span class="chip gold">${escapeHtml(label)}</span>`).join("")}
           </div>
           <div class="card-body">
+            ${psp.note ? `<p class="notice"><strong>出款备注：</strong>${escapeHtml(psp.note)}</p>` : ""}
             <p class="section">支付必须材料</p>
             <ul class="materials">
               ${psp.materials.map((item, index) => `
@@ -564,6 +589,7 @@
         `${psp.name}`,
         `币种：${selectedCurrency}`,
         `最早出账号时间：${psp.accountTime}`,
+        ...(psp.note ? [`出款备注：${psp.note}`] : []),
         "支付必须材料：",
         ...psp.materials.map((item, index) => `${index + 1}. ${item}`),
         ""
